@@ -43,6 +43,9 @@ def html_table_to_markdown(html):
         for col in cols:
             for sup in col.find_all("sup"):  # Remove superscript elements
                 sup.decompose()
+            # Handle superscript elements explicitly
+            # for sup in col.find_all("sup"):
+            #     sup.string = f"^{sup.get_text(strip=True)}^"  # Convert to Markdown superscript format
 
             text = "".join(col.stripped_strings)
             colspan = int(col.get("colspan", 1))
@@ -325,7 +328,7 @@ def fix_col_name(col_name, md_table):
     else:
         # Find the closest match
         closest_match = get_close_matches(col_name, col_names, n=1)
-        print(col_name, "matches", closest_match)
+        # print(col_name, "matches", closest_match)
         return closest_match[0] if closest_match else False
 
 
